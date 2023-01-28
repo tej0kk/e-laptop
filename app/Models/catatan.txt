@@ -17,6 +17,6 @@ b. magic connection laravel. model dan table bisa otomatis tersambung.
     2. nama tabel adalah bentuk jamak dari nama model
 
 c. relasi table pada model
-    1. hasMany -> one to many (berlaku untuk kolom PK)
-    2. hasOne -> one to one (berlaku untuk kolom PK)
+    1. hasMany ->  has one to many (berlaku untuk kolom PK)
+    2. hasOne -> has one to one (berlaku untuk kolom PK)
     3. belongsTo -> one to one (berlaku untuk kolom FK)
