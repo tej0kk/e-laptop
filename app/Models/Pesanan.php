@@ -10,4 +10,19 @@ class Pesanan extends Model
     use HasFactory;
     protected $table = 'pesanan';
     protected $guarded = [''];
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
+    public function pengiriman()
+    {
+        return $this->belongsTo(Pengiriman::class, 'pengiriman_id', 'id');
+    }
+
+    public function detailPesanan()
+    {
+        return $this->hasMany(DetailPesanan::class, 'pesanan_id', 'id');
+    }
 }

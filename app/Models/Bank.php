@@ -10,4 +10,9 @@ class Bank extends Model
     use HasFactory;
     protected $table = 'bank';
     protected $guarded = [''];
+
+    public function pesanan()
+    {
+        return $this->hasMany(Bank::class, 'bank_id', 'id');
+    }
 }

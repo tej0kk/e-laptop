@@ -10,4 +10,9 @@ class Pengiriman extends Model
     use HasFactory;
     protected $table = 'pengiriman';
     protected $guarded = [''];
+
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class, 'pengiriman_id', 'id');
+    }
 }

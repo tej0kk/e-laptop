@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MerekController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/merek', [MerekController::class, 'index']);
+Route::get('/merek/create', [MerekController::class, 'create']);
