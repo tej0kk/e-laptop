@@ -16,45 +16,23 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form form-horizontal">
+                                <form class="form form-horizontal" action="{{ url('/merek') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>First Name</label>
+                                                <label>Nama</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="first-name" class="form-control" name="fname"
-                                                    placeholder="First Name">
+                                                <input type="text" id="nama" class="form-control" name="nama"
+                                                    placeholder="Masukkan merek">
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Email</label>
+                                                <label>Logo</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="email" id="email-id" class="form-control" name="email-id"
-                                                    placeholder="Email">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Mobile</label>
-                                            </div>
-                                            <div class="col-md-8 form-group">
-                                                <input type="number" id="contact-info" class="form-control" name="contact"
-                                                    placeholder="Mobile">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Password</label>
-                                            </div>
-                                            <div class="col-md-8 form-group">
-                                                <input type="password" id="password" class="form-control" name="password"
-                                                    placeholder="Password">
-                                            </div>
-                                            <div class="col-12 col-md-8 offset-md-4 form-group">
-                                                <div class='form-check'>
-                                                    <div class="checkbox">
-                                                        <input type="checkbox" id="checkbox1" class='form-check-input'
-                                                            checked>
-                                                        <label for="checkbox1">Remember Me</label>
-                                                    </div>
-                                                </div>
+                                                <input type="file" id="logo" class="form-control" name="logo">
                                             </div>
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>

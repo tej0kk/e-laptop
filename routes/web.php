@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('/merek', [MerekController::class, 'index']);
 Route::get('/merek/create', [MerekController::class, 'create']);
+Route::post('/merek', [MerekController::class, 'store']);

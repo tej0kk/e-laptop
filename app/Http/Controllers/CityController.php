@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Merek;
+use App\Models\City;
 use Illuminate\Http\Request;
 
-class MerekController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class MerekController extends Controller
      */
     public function index()
     {
-        $merek = Merek::all();
-        // return $merek;
-        return view('merek.index', compact('merek'));
+        //
     }
 
     /**
@@ -26,7 +24,7 @@ class MerekController extends Controller
      */
     public function create()
     {
-        return view('merek.create');
+        //
     }
 
     /**
@@ -37,27 +35,16 @@ class MerekController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-
-        $image = $request->file('logo');
-        $logoName = time() . '-' . rand() . '-' . $image->getClientOriginalName();
-        $image->move(public_path('assets/images/merek/'), $logoName);
-
-        Merek::create([
-            'nama' => $request->nama,
-            'logo' => $logoName,
-        ]);
-
-        return redirect('/merek');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Merek  $merek
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show(Merek $merek)
+    public function show(City $city)
     {
         //
     }
@@ -65,10 +52,10 @@ class MerekController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Merek  $merek
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function edit(Merek $merek)
+    public function edit(City $city)
     {
         //
     }
@@ -77,10 +64,10 @@ class MerekController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Merek  $merek
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Merek $merek)
+    public function update(Request $request, City $city)
     {
         //
     }
@@ -88,10 +75,10 @@ class MerekController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Merek  $merek
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Merek $merek)
+    public function destroy(City $city)
     {
         //
     }
