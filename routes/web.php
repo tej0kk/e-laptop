@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MerekController;
+use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/merek', [MerekController::class, 'index']);
-Route::get('/merek/create', [MerekController::class, 'create']);
-Route::post('/merek', [MerekController::class, 'store']);
+Route::resource('/merek', MerekController::class)->except(['show']);
+Route::resource('/produk', ProdukController::class);

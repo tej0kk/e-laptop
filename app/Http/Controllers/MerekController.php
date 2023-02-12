@@ -38,7 +38,7 @@ class MerekController extends Controller
     public function store(Request $request)
     {
         // return $request;
-
+        
         $image = $request->file('logo');
         $logoName = time() . '-' . rand() . '-' . $image->getClientOriginalName();
         $image->move(public_path('assets/images/merek/'), $logoName);
@@ -65,12 +65,13 @@ class MerekController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Merek  $merek
+     * @param  \App\Models\Merek  $merek Select * from merek where id=$merek
      * @return \Illuminate\Http\Response
      */
     public function edit(Merek $merek)
     {
-        //
+        // return $merek;
+        return view('merek.edit', compact('merek'));
     }
 
     /**
@@ -82,7 +83,26 @@ class MerekController extends Controller
      */
     public function update(Request $request, Merek $merek)
     {
-        //
+        // return $request;
+
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $logoName = time() . '-' . rand() . '-' . $image->getClientOriginalName();
+            $image->move(public_path('assets/images/merek/'), $logoName);
+
+            Merek::where('id', $merek->id)
+                ->update([
+                    'nama' => $request->nama,
+                    'logo' => $logoName
+                ]);
+        } else {
+            Merek::where('id', $merek->id)
+                ->update([
+                    'nama' => $request->nama,
+                ]);
+        }
+
+        return redirect('/merek');
     }
 
     /**
@@ -93,6 +113,8 @@ class MerekController extends Controller
      */
     public function destroy(Merek $merek)
     {
-        //
+        // return $merek;
+        Merek::destroy($merek->id);
+        return redirect('/merek');
     }
 }

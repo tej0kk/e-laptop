@@ -34,11 +34,16 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->nama }}</td>
-                                                <td><img src="{{ asset('assets/images/merek/' . $item->logo) }}" width="150vh"
-                                                        alt="{{ $item->logo }}"></td>
+                                                <td><img src="{{ asset('assets/images/merek/' . $item->logo) }}"
+                                                        width="150vh" alt="{{ $item->logo }}"></td>
                                                 <td>
-                                                    <button class="btn btn-success">edit</button>
-                                                    <button class="btn btn-danger">hapus</button>
+                                                    <a href="{{ url('/merek/' . $item->id . '/edit') }}"
+                                                        class="btn btn-success">edit</a>
+                                                    <form action="{{ url('/merek/' . $item->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">hapus</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
