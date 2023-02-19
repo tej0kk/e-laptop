@@ -12,11 +12,16 @@ class MerekController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $merek = Merek::all();
+        $q = $request->q;
+        if (isset($q)) {
+            $merek = Merek::where('nama', 'like', '%' . $q . '%')->paginate(5);
+        } else {
+            $merek = Merek::paginate(5);
+        }
         // return $merek;
-        return view('merek.index', compact('merek'));
+        return view('merek.index', compact('merek', 'q'));
     }
 
     /**
@@ -38,7 +43,7 @@ class MerekController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        
+
         $image = $request->file('logo');
         $logoName = time() . '-' . rand() . '-' . $image->getClientOriginalName();
         $image->move(public_path('assets/images/merek/'), $logoName);
@@ -86,6 +91,10 @@ class MerekController extends Controller
         // return $request;
 
         if ($request->hasFile('logo')) {
+            
+            if (file_exists(public_path('assets/images/merek/' . $merek->logo))) {
+                unlink(public_path('assets/images/merek/' . $merek->logo));
+            }
             $image = $request->file('logo');
             $logoName = time() . '-' . rand() . '-' . $image->getClientOriginalName();
             $image->move(public_path('assets/images/merek/'), $logoName);
@@ -115,6 +124,9 @@ class MerekController extends Controller
     {
         // return $merek;
         Merek::destroy($merek->id);
+        if (file_exists(public_path('assets/images/merek/' . $merek->logo))) {
+            unlink(public_path('assets/images/merek/' . $merek->logo));
+        }
         return redirect('/merek');
     }
 }

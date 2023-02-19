@@ -32,14 +32,14 @@
                     </a>
                 </li>
                 <li class="sidebar-title">Master Data</li>
-                <li class="sidebar-item">
+                <li class="sidebar-item @if(Request::segment(1) == 'merek') active @endif">
                     <a href="{{ url('/merek') }}" class='sidebar-link'>
                         <i class="bi bi-upc-scan"></i>
                         <span>Merek</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="index.html" class='sidebar-link'>
+                <li class="sidebar-item @if(Request::segment(1) == 'produk') active @endif">
+                    <a href="{{ url('/produk') }}" class='sidebar-link'>
                         <i class="bi bi-laptop-fill"></i>
                         <span>Produk</span>
                     </a>

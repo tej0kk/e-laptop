@@ -16,7 +16,19 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <a href="{{ url('/merek/create') }}" class="btn btn-primary rounded-pill">+ Tambah</a>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{{ url('/merek/create') }}" class="btn btn-primary rounded-pill">
+                                            <i class="fa-solid fa-file-circle-plus"></i> Tambah</a>
+                                    </div>
+                                    <div class="col">
+                                        <form action="">
+                                            <input style="border-radius:25px;" type="text" name="q"
+                                                value="{{ $q }}">
+                                            <button class="btn btn-secondary rounded-pill" type="submit"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                             <!-- table bordered -->
                             <div class="table-responsive">
@@ -32,28 +44,62 @@
                                     <tbody>
                                         @foreach ($merek as $item)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $loop->iteration + 5 * ($merek->currentPage() - 1) }}</td>
                                                 <td>{{ $item->nama }}</td>
                                                 <td><img src="{{ asset('assets/images/merek/' . $item->logo) }}"
                                                         width="150vh" alt="{{ $item->logo }}"></td>
                                                 <td>
                                                     <a href="{{ url('/merek/' . $item->id . '/edit') }}"
-                                                        class="btn btn-success">edit</a>
-                                                    <form action="{{ url('/merek/' . $item->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">hapus</button>
-                                                    </form>
+                                                        class="btn btn-success rounded-pill"><i class="fa-solid fa-pen-ruler"></i></a>
+                                                    <button id="buttonHapus" type="button" class="btn btn-danger rounded-pill"
+                                                        data-id="{{ $item->id }}"><i class="fa-solid fa-trash-can"></i></button>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                            {{ $merek->links() }}
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+
+    <!-- Modal Hapus-->
+    <div class="modal fade" id="modalHapus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Hapus Merek</h1>
+                </div>
+                <form id="formHapus" action="" method="POST">
+                    <div class="modal-body">
+                        @csrf
+                        @method('DELETE')
+                        <h4>Apakah anda yakin ? 😮‍💨🫥🤔</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger rounded-pill">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
+    <script>
+        $('body').on('click', '#buttonHapus', function(event) {
+            var id = $(this).data('id');
+            var url = "{{ url('/merek') }}/" + id;
+            $('#modalHapus').modal('show');
+            var form = document.getElementById('formHapus');
+            form.action = url;
+        });
+    </script>
 @endsection
