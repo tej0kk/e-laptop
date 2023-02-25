@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\MerekController;
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,6 @@ Route::get('/', function () {
 
 Route::resource('/merek', MerekController::class)->except(['show']);
 Route::resource('/produk', ProdukController::class);
+
+Route::get('/banner/create/{angka}', [BannerController::class, 'create']);
+Route::resource('/banner', BannerController::class);
