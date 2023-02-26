@@ -23,5 +23,7 @@ Route::get('/', function () {
 Route::resource('/merek', MerekController::class)->except(['show']);
 Route::resource('/produk', ProdukController::class);
 
+Route::get('/banner/{angka}', [BannerController::class, 'index']);
 Route::get('/banner/create/{angka}', [BannerController::class, 'create']);
-Route::resource('/banner', BannerController::class);
+Route::post('/banner/{angka}', [BannerController::class, 'store']);
+Route::get('/banner/{id}/edit/{angka}', [BannerController::class, 'edit']);

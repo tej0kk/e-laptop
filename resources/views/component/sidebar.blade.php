@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="index.html" class='sidebar-link'>
+                    <a href="{{ url('/banner/satu') }}" class='sidebar-link'>
                         <i class="bi bi-image-fill"></i>
                         <span>Banner</span>
                     </a>

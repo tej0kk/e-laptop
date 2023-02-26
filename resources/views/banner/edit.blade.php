@@ -1,10 +1,10 @@
 @extends('app')
 
-@section('title', 'elaptop - tambah banner')
+@section('title', 'elaptop - Edit banner')
 
 @section('content')
     <div class="page-heading">
-        <h3>Tambah Banner {{ $angka }}</h3>
+        <h3>Edit Banner {{ $angka }}</h3>
     </div>
     <div class="page-content">
         <section id="basic-horizontal-layouts">
@@ -26,7 +26,7 @@
                                             </div>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" name="status" type="checkbox"
-                                                    id="status" value="show" />
+                                                    id="status" value="show" checked/>
                                                 <label class="form-check-label" for="flexSwitchCheckChecked">Pilih untuk
                                                     menampilkan</label>
                                             </div>
