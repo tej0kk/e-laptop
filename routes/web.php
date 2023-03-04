@@ -20,10 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/merek/cetak-merek');
 Route::resource('/merek', MerekController::class)->except(['show']);
 Route::resource('/produk', ProdukController::class);
 
+//banner====================================================================
 Route::get('/banner/{angka}', [BannerController::class, 'index']);
 Route::get('/banner/create/{angka}', [BannerController::class, 'create']);
 Route::post('/banner/{angka}', [BannerController::class, 'store']);
 Route::get('/banner/{id}/edit/{angka}', [BannerController::class, 'edit']);
+//==========================================================================

@@ -8,11 +8,17 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $produk = Produk::all();
+        $q = $request->q;
+        if (isset($q)) {
+            $produk = Produk::where('nama', 'like', '%' . $q . '%')
+                ->paginate(5);
+        } else {
+            $produk = Produk::paginate(5);
+        }
         // return $merek;
-        return view('produk.index', compact('produk'));
+        return view('produk.index', compact('produk', 'q'));
     }
 
     public function create()
@@ -25,26 +31,28 @@ class ProdukController extends Controller
     {
         // return $request;
 
-        $request->validate([
-            'merek_id' => 'required',
-            'nama' => 'required|min:3|max:70',
-            'harga' => 'required|numeric',
-            'spesifikasi' => 'required',
-            'stok' => 'required|numeric',
-            'foto' => 'required',
-        ], 
-        [
-            'merek_id.required' => 'Silahkan pilih merek 😇',
-            'nama.required' => 'Silahkan isi nama produk 😇',
-            'nama.min' => 'Nama produk terlalu pendek 😇',
-            'nama.max' => 'Nama produk terlalu panjang 😇',
-            'harga.required' => 'Silahkan isi harga produk 😇',
-            'harga.numeric' => 'Silahkan masukkan harga yang sesuai 😇',
-            'spesfikasi.required' => 'Silahkan isi spesifikasi produk 😇',
-            'stok.required' => 'Silahkan isi stok produk 😇',
-            'stok.numeric' => 'Silahkan masukkan stok yang sesuai 😇',
-            'foto.required' => 'Silahkan isi foto produk 😇',
-        ]);
+        $request->validate(
+            [
+                'merek_id' => 'required',
+                'nama' => 'required|min:3|max:70',
+                'harga' => 'required|numeric',
+                'spesifikasi' => 'required',
+                'stok' => 'required|numeric',
+                'foto' => 'required',
+            ],
+            [
+                'merek_id.required' => 'Silahkan pilih merek 😇',
+                'nama.required' => 'Silahkan isi nama produk 😇',
+                'nama.min' => 'Nama produk terlalu pendek 😇',
+                'nama.max' => 'Nama produk terlalu panjang 😇',
+                'harga.required' => 'Silahkan isi harga produk 😇',
+                'harga.numeric' => 'Silahkan masukkan harga yang sesuai 😇',
+                'spesfikasi.required' => 'Silahkan isi spesifikasi produk 😇',
+                'stok.required' => 'Silahkan isi stok produk 😇',
+                'stok.numeric' => 'Silahkan masukkan stok yang sesuai 😇',
+                'foto.required' => 'Silahkan isi foto produk 😇',
+            ]
+        );
 
         $image = $request->file('foto');
         $fotoName = time() . '-' . rand() . '-' . $image->getClientOriginalName();
@@ -60,7 +68,7 @@ class ProdukController extends Controller
             'rekomendasi' => $request->has('rekomendasi') ? $request->rekomendasi : 'tidak' //ternary operator
         ]);
 
-        return redirect('/produk');
+        return redirect('/produk')->with('success', $request->nama. ' Berhasil ditambahkan');
     }
 
     public function show(Produk $produk)
@@ -75,11 +83,11 @@ class ProdukController extends Controller
 
     public function update(Request $request, Produk $produk)
     {
-        //
+        return redirect('/produk')->with('success', $produk->nama. ' Berhasil diubah');
     }
 
     public function destroy(Produk $produk)
     {
-        //
+        return redirect('/produk')->with('success', $produk->nama. ' Berhasil dihapus');
     }
 }

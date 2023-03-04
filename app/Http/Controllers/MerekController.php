@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Merek;
 use Illuminate\Http\Request;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class MerekController extends Controller
 {
@@ -14,35 +15,32 @@ class MerekController extends Controller
      */
     public function index(Request $request)
     {
-        $q = $request->q;
-        if (isset($q)) {
-            $merek = Merek::where('nama', 'like', '%' . $q . '%')->paginate(5);
-        } else {
-            $merek = Merek::paginate(5);
-        }
-        // return $merek;
-        return view('merek.index', compact('merek', 'q'));
+        // $q = $request->q;
+        // if (isset($q)) {
+        //     $merek = Merek::where('nama', 'like', '%' . $q . '%')->paginate(5);
+        // } else {
+        //     $merek = Merek::paginate(5);
+        // }
+        // // return $merek;
+        // return view('merek.index', compact('merek', 'q'));
+        $merek = Merek::all();
+        return view('merek.index', compact('merek'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('merek.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // return $request;
+
+        $request->validate([
+            'nama' => 'required',
+            'logo' => 'required'
+        ]);
 
         $image = $request->file('logo');
         $logoName = time() . '-' . rand() . '-' . $image->getClientOriginalName();
@@ -89,7 +87,11 @@ class MerekController extends Controller
     public function update(Request $request, Merek $merek)
     {
         // return $request;
-
+        $request->validate([
+            'nama' => 'required',
+            'logo' => 'required'
+        ]);
+        
         if ($request->hasFile('logo')) {
             
             if (file_exists(public_path('assets/images/merek/' . $merek->logo))) {

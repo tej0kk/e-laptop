@@ -11,12 +11,33 @@
             <div class="row" id="table-bordered">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Tabel Produk</h4>
-                        </div>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $item)
+                                <div class="alert alert-danger" role="alert">
+                                    {{ $item }}
+                                </div>
+                            @endforeach
+                        @endif
                         <div class="card-content">
-                            <div class="card-body">
-                                <a href="{{ url('/produk/create') }}" class="btn btn-primary rounded-pill">+ Tambah</a>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-body">
+                                        <a href="{{ url('/produk/create') }}" class="btn btn-primary rounded-pill">+
+                                            Tambah</a>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <form action="">
+                                        <input style="border-radius:25px;" type="text" name="q" value="{{$q}}">
+                                        <button class="btn btn-secondary rounded-pill" type="submit"><i
+                                                class="fa-solid fa-magnifying-glass-plus"></i></button>
+                                    </form>
+                                </div>
                             </div>
                             <!-- table bordered -->
                             <div class="table-responsive">
