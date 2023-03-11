@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\MerekController;
 use App\Http\Controllers\ProdukController;
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'loginProses']);
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'registerStore']);
 
 Route::get('/', function () {
     return view('welcome');
