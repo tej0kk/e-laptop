@@ -16,7 +16,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form form-horizontal" action="{{ url('/merek/'. $merek->id) }}" method="POST"
+                                <form class="form form-horizontal" action="{{ route('merek.update', $merek->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')

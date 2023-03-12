@@ -49,7 +49,7 @@
                                                 <td><img src="{{ asset('assets/images/merek/' . $item->logo) }}"
                                                         width="150vh" alt="{{ $item->logo }}"></td>
                                                 <td>
-                                                    <a href="{{ url('/merek/' . $item->id . '/edit') }}"
+                                                    <a href="{{ route('merek.edit' , $item->id) }}"
                                                         class="btn btn-success rounded-pill"><i class="fa-solid fa-pen-ruler"></i></a>
                                                     <button id="buttonHapus" type="button" class="btn btn-danger rounded-pill"
                                                         data-id="{{ $item->id }}"><i class="fa-solid fa-trash-can"></i></button>

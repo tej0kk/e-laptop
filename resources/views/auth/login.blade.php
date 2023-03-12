@@ -28,9 +28,9 @@
                     <form action="{{ url('/login') }}" method="POST">
                         @csrf
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="email"
+                            <input type="text"
                                 class="form-control @error('email') is-invalid @enderror form-control-xl"
-                                placeholder="email" name="email" />
+                                placeholder="Username or Email" name="email" />
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>

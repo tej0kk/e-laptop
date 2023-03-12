@@ -62,6 +62,13 @@
                         <span>Banner</span>
                     </a>
                 </li>
+                <li class="sidebar-title">Account</li>
+                <li class="sidebar-item">
+                    <a href="{{ url('/logout') }}" class='sidebar-link'>
+                        <i class="fas fa-sign-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

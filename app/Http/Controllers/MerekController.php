@@ -15,16 +15,16 @@ class MerekController extends Controller
      */
     public function index(Request $request)
     {
-        // $q = $request->q;
-        // if (isset($q)) {
-        //     $merek = Merek::where('nama', 'like', '%' . $q . '%')->paginate(5);
-        // } else {
-        //     $merek = Merek::paginate(5);
-        // }
-        // // return $merek;
-        // return view('merek.index', compact('merek', 'q'));
-        $merek = Merek::all();
-        return view('merek.index', compact('merek'));
+        $q = $request->q;
+        if (isset($q)) {
+            $merek = Merek::where('nama', 'like', '%' . $q . '%')->paginate(5);
+        } else {
+            $merek = Merek::paginate(5);
+        }
+        // return $merek;
+        return view('merek.index', compact('merek', 'q'));
+        // $merek = Merek::all();
+        // return view('merek.index', compact('merek'));
     }
 
 
@@ -131,4 +131,5 @@ class MerekController extends Controller
         }
         return redirect('/merek');
     }
+
 }

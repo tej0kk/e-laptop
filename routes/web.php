@@ -18,22 +18,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/login', [AuthController::class, 'login']);
-Route::post('/login', [AuthController::class, 'loginProses']);
-Route::get('/register', [AuthController::class, 'register']);
-Route::post('/register', [AuthController::class, 'registerStore']);
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'loginProses'])->name('login.proses');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'registerStore'])->name('register.store');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/merek/cetak-merek');
-Route::resource('/merek', MerekController::class)->except(['show']);
-Route::resource('/produk', ProdukController::class);
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('/merek', MerekController::class)->except(['show']);
+    Route::resource('/produk', ProdukController::class);
+    
+    //banner====================================================================
+    Route::get('/banner/{angka}', [BannerController::class, 'index']);
+    Route::get('/banner/create/{angka}', [BannerController::class, 'create']);
+    Route::post('/banner/{angka}', [BannerController::class, 'store']);
+    Route::get('/banner/{id}/edit/{angka}', [BannerController::class, 'edit']);
+    //==========================================================================
+    
+    Route::get('/logout', [AuthController::class, 'logout']);
 
-//banner====================================================================
-Route::get('/banner/{angka}', [BannerController::class, 'index']);
-Route::get('/banner/create/{angka}', [BannerController::class, 'create']);
-Route::post('/banner/{angka}', [BannerController::class, 'store']);
-Route::get('/banner/{id}/edit/{angka}', [BannerController::class, 'edit']);
-//==========================================================================
+});

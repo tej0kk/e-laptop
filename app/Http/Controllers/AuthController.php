@@ -28,12 +28,17 @@ class AuthController extends Controller
             ]
         );
 
-        $credential = [
+        $credential_email = [
             'email' => $request->email,
             'password' => $request->password
         ];
+        
+        $credential_username = [
+            'name' => $request->email,
+            'password' => $request->password
+        ];
 
-        if (Auth::attempt($credential)) {
+        if (Auth::attempt($credential_email) || Auth::attempt($credential_username)) {
             return redirect('/merek');
         } else {
             return redirect()->back();
@@ -68,6 +73,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->confirm_password)
         ]);
 
+        return redirect('/login');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
         return redirect('/login');
     }
 }
