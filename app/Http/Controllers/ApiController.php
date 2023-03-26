@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+
     public function merek()
     {
         $merek = Merek::all();
@@ -22,13 +23,44 @@ class ApiController extends Controller
         ]);
     }
 
-    public function produk()
+    public function produk(Request $request)
     {
-        $produk = Produk::with('merek')->get();
+        $produk = $request->q;
+        $paginate = $request->limit;
+        $rekomendasi = $request->rekomendasi;
+
+        if($rekomendasi=='recommended'){
+            $data = Produk::with('merek')->where('rekomendasi', 'ya')->get();
+            return response()->json([
+                'status' => true,
+                'message' => 'ini adalah data produk rekomendasi',
+                'data' => $data
+            ]);
+        }
+
+        if ($paginate) {
+            $data = Produk::with('merek')->paginate($paginate);
+            return response()->json([
+                'status' => true,
+                'message' => 'ini adalah data produk paginasi',
+                'data' => $data
+            ]);
+        }
+
+        if ($produk) {
+            $data = Produk::where('id', $produk)->with('merek')->first();
+            return response()->json([
+                'status' => true,
+                'message' => 'ini adalah data produk',
+                'data' => $data
+            ]);
+        }
+
+        $data = Produk::with('merek')->get();
         return response()->json([
             'status' => true,
-            'message' => 'ini adalah data produk',
-            'data' => $produk
+            'message' => 'ini adalah data seluruh produk',
+            'data' => $data
         ]);
     }
 

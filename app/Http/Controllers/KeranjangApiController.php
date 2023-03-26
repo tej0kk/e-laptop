@@ -45,7 +45,6 @@ class KeranjangApiController extends Controller
             'produk_id' => 'required',
             'banyak' => 'required|numeric'
         ]);
-
         $produk = Produk::where('id', $request->produk_id)->first();
         if ($produk->stok < $request->banyak) {
             return response()->json([
@@ -55,35 +54,34 @@ class KeranjangApiController extends Controller
             ]);
         }
 
-        $isiKeranjang = Keranjang::all();
-        foreach ($isiKeranjang as $item) {
-            if ($request->produk_id == $item->produk_id) {
+        $isiKeranjang = Keranjang::where('produk_id', $request->produk_id)->first();
+        if ($isiKeranjang) {
+            $total_harga = $request->banyak * $produk->harga;
+            $keranjang = Keranjang::find($isiKeranjang->id)->update([
+                'banyak' => $isiKeranjang->banyak + $request->banyak,
+                'total_harga' => $isiKeranjang->total_harga + $total_harga
+            ]);
+            Produk::find($request->produk_id)->update(['stok' => $produk->stok - $request->banyak]);
 
-                $total_harga = $request->banyak * $produk->harga;
-                $keranjang = Keranjang::find($item->id)->update([
-                    'banyak' => $item->banyak + $request->banyak,
-                    'total_harga' => $item->total_harga + $total_harga
-                ]);
-
-                Produk::find($request->produk_id)->update(['stok' => $produk->stok - $request->banyak]);
-            }
+            return response()->json([
+                'status' => true,
+                'message' => 'berhasil menambahkan keranjang',
+                'data' => $keranjang
+            ]);
+        } else {
+            $total_harga = $request->banyak * $produk->harga;
+            $keranjang = Keranjang::create([
+                'produk_id' => $request->produk_id,
+                'banyak' => $request->banyak,
+                'total_harga' => $total_harga
+            ]);
+            Produk::find($request->produk_id)->update(['stok' => $produk->stok - $request->banyak]);
+            return response()->json([
+                'status' => true,
+                'message' => 'berhasil menambahkan keranjang',
+                'data' => $keranjang
+            ]);
         }
-
-        // $total_harga = $request->banyak * $produk->harga;
-
-        // $keranjang = Keranjang::create([
-        //     'produk_id' => $request->produk_id,
-        //     'banyak' => $request->banyak,
-        //     'total_harga' => $total_harga
-        // ]);
-
-        // Produk::find($request->produk_id)->update(['stok' => $produk->stok - $request->banyak]);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'berhasil menambahkan keranjang',
-            'data' => $keranjang
-        ]);
     }
 
     /**

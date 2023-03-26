@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\MerekController;
+use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/banner/{id}/edit/{angka}', [BannerController::class, 'edit']);
     //==========================================================================
     
+    //keranjang=================================================================
+    Route::get('/keranjang', [KeranjangController::class, 'index']);
+    //==========================================================================
+
+    //pesanan===================================================================
+    Route::get('/pesanan', [PesananController::class, 'index']);
+    //==========================================================================
+
     Route::get('/logout', [AuthController::class, 'logout']);
 
 });

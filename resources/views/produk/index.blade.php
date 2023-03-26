@@ -54,7 +54,7 @@
                                     <tbody>
                                         @foreach ($produk as $item)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $loop->iteration + 5 * ($produk->currentPage() - 1) }}</td>
                                                 <td>{{ $item->nama }}</td>
                                                 <td>{{ $item->merek->nama }}</td>
                                                 <td><img src="{{ asset('assets/images/produk/' . $item->foto) }}"
@@ -73,6 +73,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {{ $produk->links() }}
                         </div>
                     </div>
                 </div>

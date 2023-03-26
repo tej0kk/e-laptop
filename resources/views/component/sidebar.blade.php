@@ -19,26 +19,26 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="index.html" class='sidebar-link'>
+                <li class="sidebar-item @if (Request::segment(1) == 'keranjang') active @endif">
+                    <a href="{{ url('/keranjang') }}" class='sidebar-link'>
                         <i class="bi bi-cart-fill"></i>
                         <span>Keranjang</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="index.html" class='sidebar-link'>
+                <li class="sidebar-item @if (Request::segment(1) == 'pesanan') active @endif">
+                    <a href="{{ url('/pesanan') }}" class='sidebar-link'>
                         <i class="bi bi-bag-fill"></i>
                         <span>Pesanan</span>
                     </a>
                 </li>
                 <li class="sidebar-title">Master Data</li>
-                <li class="sidebar-item @if(Request::segment(1) == 'merek') active @endif">
+                <li class="sidebar-item @if (Request::segment(1) == 'merek') active @endif">
                     <a href="{{ url('/merek') }}" class='sidebar-link'>
                         <i class="bi bi-upc-scan"></i>
                         <span>Merek</span>
                     </a>
                 </li>
-                <li class="sidebar-item @if(Request::segment(1) == 'produk') active @endif">
+                <li class="sidebar-item @if (Request::segment(1) == 'produk') active @endif">
                     <a href="{{ url('/produk') }}" class='sidebar-link'>
                         <i class="bi bi-laptop-fill"></i>
                         <span>Produk</span>
