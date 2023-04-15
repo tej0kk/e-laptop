@@ -29,7 +29,7 @@ class ApiController extends Controller
         $paginate = $request->limit;
         $rekomendasi = $request->rekomendasi;
 
-        if($rekomendasi=='recommended'){
+        if ($rekomendasi == 'recommended') {
             $data = Produk::with('merek')->where('rekomendasi', 'ya')->get();
             return response()->json([
                 'status' => true,
@@ -64,8 +64,17 @@ class ApiController extends Controller
         ]);
     }
 
-    public function bank()
+    public function bank(Request $request)
     {
+        $id = $request->id;
+        if ($id) {
+            $bank = Bank::where('id', $id)->first();
+            return response()->json([
+                'status' => true,
+                'message' => 'ini adalah data bank',
+                'data' => $bank
+            ]);     
+        }
         $bank = Bank::all();
         return response()->json([
             'status' => true,
@@ -74,8 +83,18 @@ class ApiController extends Controller
         ]);
     }
 
-    public function pengiriman()
+    public function pengiriman(Request $request)
     {
+        $id = $request->id;
+        if ($id) {
+            $pengiriman = Pengiriman::where('id', $id)->first();
+            return response()->json([
+                'status' => true,
+                'message' => 'ini adalah data pengiriman',
+                'data' => $pengiriman
+            ]);
+        }
+
         $pengiriman = Pengiriman::all();
         return response()->json([
             'status' => true,
